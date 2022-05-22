@@ -1,52 +1,44 @@
-package main
+package pkg
 
 import (
 	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
-	"strings"
+	"regexp"
 )
 
-
-func main() {
-
-	files, err := ioutil.ReadDir(".")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	var sksk = make(map[string]int)
-
-	for _, file := range files {
-sksk[file.Name()]++
-	}
-
-	var count int
-
-	for k := range sksk{
-
-		switch strings.Contains(k,".txt") {
-		case true:
-			fmt.Println(k)
-			count+=1
-		case false:
-			break
+	func FindAllTypesInDir() error{
+		files, err := ioutil.ReadDir(".")
+		if err != nil {
+			fmt.Println("cant read current directory")
+			log.Fatal(err)
 		}
-		switch strings.Contains(k,".xml") {
-		case true:
-			fmt.Println(k)
-			count+=1
-		case false:
-			break
-		}
-		switch strings.Contains(k,".xlsx") {
-		case true:
-			fmt.Println(k)
-			count+=1
-		case false:
-			break
-		}
+
+		var sksk = make(map[string]int)
+
+		var count int
+
+		for _, file := range files {
+			sksk[file.Name()]++
+
+			xls,_ := regexp.MatchString(".xls",file.Name())
+			if xls == true{
+				count+=1
+				fmt.Println("I found excel")
+			}
+
+			txt,_ := regexp.MatchString(".txt",file.Name())
+			if txt == true{
+				count+=1
+				fmt.Println("i found txt")
+			}
+
+			xml,_ := regexp.MatchString(".xml",file.Name())
+			if xml == true{
+				count+=1
+				fmt.Println("i found xml")
+			}
 		}
 
 		if count > 3 || count < 3 {
@@ -56,4 +48,5 @@ sksk[file.Name()]++
 		} else {
 			fmt.Println("Files found, you can work. Status : OK")
 		}
+		return err
 	}
