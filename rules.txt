@@ -1,11 +1,1 @@
-example
-
-4;2;4;brand;5;stock;6;discount;
-3;5;2;price;3;percent;
-
-4 = choose cell where will be article
-2 = number of column where article start
-4 = number of column for the next arguments from product (xml)
-brand = argument from product (xml)
-5 = next number of column for the next argument from product (xml)
-stock = argument from product (xml)
+4;2;4;brand;5;stock;6;cost;

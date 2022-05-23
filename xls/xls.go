@@ -10,9 +10,7 @@ import (
 //Sheet1 = лист1, Sheet2 = лист2 и так далее
 
 func ParseExcel(scan string) bool{
-	if err := pkg.FindAllTypesInDir(); err != nil {
-		fmt.Println(err.Error())
-	}
+
 	var article = xml.Article
 	//fmt.Println(article)
 

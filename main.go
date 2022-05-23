@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"xml-txt/pkg"
+	"xml-txt/txt"
 	"xml-txt/xls"
 	"xml-txt/xml"
 )
@@ -17,15 +18,15 @@ func main() {
 		fmt.Println(err.Error())
 	}
 	xml.ParseXml("article")
-	for _,v := range xml.UserArgsArray{
-		if xls.ParseExcel(v) == true {
-			fmt.Println("all ok")
-		}
-	}
+	xls.WriteXlsFile()
+	xls.ParseExcel("article")
+	txt.GetArgsFromTxt()
 
 
+	//xml.ParseXml("name")
 
-	/*check, _ := os.ReadFile("./txt/")
+
+	/*check, _ := os.ReadFile("./txt/Booking.txt")
 	fmt.Println(string(check))*/
 
 }
