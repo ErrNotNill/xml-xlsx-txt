@@ -25,7 +25,7 @@ func main() {
 
 
 
-	/*check, _ := os.ReadFile("./txt/Booking.txt")
+	/*check, _ := os.ReadFile("./txt/")
 	fmt.Println(string(check))*/
 
 }
