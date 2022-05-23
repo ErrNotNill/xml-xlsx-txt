@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io/ioutil"
 	"xml-txt/pkg"
+	"xml-txt/xls"
+	"xml-txt/xml"
 )
 
 //1 - FindAllTypes (added all files)
@@ -14,6 +16,14 @@ func main() {
 	if err := pkg.FindAllTypesInDir(); err != nil {
 		fmt.Println(err.Error())
 	}
+	xml.ParseXml("article")
+	for _,v := range xml.UserArgsArray{
+		if xls.ParseExcel(v) == true {
+			fmt.Println("all ok")
+		}
+	}
+
+
 
 	/*check, _ := os.ReadFile("./txt/Booking.txt")
 	fmt.Println(string(check))*/

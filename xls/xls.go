@@ -1,4 +1,4 @@
-package main
+package xls
 
 import (
 	"fmt"
@@ -9,17 +9,17 @@ import (
 
 //Sheet1 = лист1, Sheet2 = лист2 и так далее
 
-func main() {
+func ParseExcel(scan string) bool{
 	if err := pkg.FindAllTypesInDir(); err != nil {
 		fmt.Println(err.Error())
 	}
 	var article = xml.Article
-	fmt.Println(article)
+	//fmt.Println(article)
 
 	f, err := excelize.OpenFile(pkg.ExcelFile)
 	if err != nil {
 		fmt.Println(err)
-		return
+
 	}
 
 	defer func() {
@@ -36,7 +36,7 @@ func main() {
 	}*/
 	var cellArr = make([]string, 0)
 	// Get value from cell by given worksheet name and axis.
-	cell, err := f.GetCellValue("Остатки", "F3") //get all F
+	//cell, err := f.GetCellValue("Остатки", "F3") //get all F
 
 	/*stroka = "F0"
 	strconv.Atoi()
@@ -44,17 +44,20 @@ func main() {
 	fmt.Println(cell)*/
 	if err != nil {
 		fmt.Println(err)
-		return
+
 	}
-	fmt.Println(cell)
+	//fmt.Println(cell)
 	// Get all the rows in the Sheet1.
 	rows, err := f.GetRows("Остатки")
 	if err != nil {
 		fmt.Println(err)
-		return
+
 	}
-	for _, v := range article {
-		fmt.Println(v)
+	for _, v := range article { //todo find there Article
+		if scan == v {
+fmt.Printf("Yes i found this: %v",v)
+return true
+		}
 	}
 	for _, row := range rows {
 
@@ -85,5 +88,7 @@ func main() {
 		}
 		//fmt.Println()
 	}
-
+	return false
 }
+
+

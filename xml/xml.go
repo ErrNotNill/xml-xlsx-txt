@@ -10,8 +10,10 @@ const Takeme = "Hi"
 
 var TryImport string
 var Article []string //THERE ALL Articles
+var UserArgsArray []string
 
-func ParseXml() {
+func ParseXml(scan string) {
+
 	if err := pkg.FindAllTypesInDir(); err != nil {
 		fmt.Println(err.Error())
 	}
@@ -30,13 +32,18 @@ func ParseXml() {
 		if title := book.SelectElement("article"); title != nil {
 			//lang := title.SelectAttrValue("lang", "unknown")
 			//fmt.Printf("  Article: %s \n", title.Text())
-			Article = append(Article, title.Text())
+			Article = append(Article, title.Text()) //todo look at this
+
 		}
+if userargs := book.SelectElement(scan);userargs != nil{ //todo User Args
+	//fmt.Println(userargs.Text()) //todo return this
+	UserArgsArray = append(UserArgsArray,userargs.Text())
+}
 		for _, attr := range book.Attr {
 			fmt.Printf("  ATTR: %s=%s\n", attr.Key, attr.Value)
 		}
 	}
-	for i := range Article {
+	/*for i := range Article {
 		fmt.Printf("Article: %v\n", Article[i])
-	}
+	}*/
 }

@@ -6,11 +6,22 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"strings"
 )
 
 var ExcelFile string
 var XmlFile string
 var TxtFile string
+
+func CheckExcel(filename string) bool{
+	exceltypes := []string{".xls",".xlsx",".xlam",".xlsm",".xltm",".xltx",".xlt",".xlr"}
+	for _,v := range exceltypes{
+		if strings.HasSuffix(filename,v){
+			return true
+		}
+	}
+	return false
+}
 
 func FindAllTypesInDir() error {
 	files, err := ioutil.ReadDir(".")
@@ -26,25 +37,31 @@ func FindAllTypesInDir() error {
 	for _, file := range files {
 		sksk[file.Name()]++
 
-		xls, _ := regexp.MatchString(".xls", file.Name())
+		xls, _ := regexp.MatchString(".xl", file.Name())
 		if xls == true {
-			count += 1
-			fmt.Println("I found excel")
-			ExcelFile = file.Name()
+			if CheckExcel(file.Name()) == true{
+				count += 1
+				fmt.Println("I found excel")
+				ExcelFile = file.Name()
+			}
 		}
 
 		txt, _ := regexp.MatchString(".txt", file.Name())
 		if txt == true {
-			count += 1
-			fmt.Println("i found txt")
-			TxtFile = file.Name()
+			if strings.HasSuffix(file.Name(),".txt"){
+				count += 1
+				fmt.Println("i found txt")
+				TxtFile = file.Name()
+			}
 		}
 
 		xml, _ := regexp.MatchString(".xml", file.Name())
 		if xml == true {
-			count += 1
-			fmt.Println("i found xml")
-			XmlFile = file.Name()
+			if strings.HasSuffix(file.Name(),".xml"){
+				count += 1
+				fmt.Println("i found xml")
+				XmlFile = file.Name()
+			}
 		}
 	}
 
