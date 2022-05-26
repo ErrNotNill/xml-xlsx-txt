@@ -3,17 +3,26 @@ package xls
 import (
 	"fmt"
 	"github.com/xuri/excelize/v2"
+	"strings"
 	"xml-txt/pkg"
 	"xml-txt/xml"
 )
 
-//Sheet1 = лист1, Sheet2 = лист2 и так далее
+type Table struct {
+	Col       string
+	Row       string
+	ClientCol string
+	ClientRow string
+}
 
-func ParseExcel(scan string) bool{
+func (t *Table) SplitTable() {
+	t.ClientCol = t.Row
+	t.ClientRow = t.Col
+}
 
-	var article = xml.Article
-	//fmt.Println(article)
+var FoundedArticle string
 
+func GetColumnsExcel() {
 	f, err := excelize.OpenFile(pkg.ExcelFile)
 	if err != nil {
 		fmt.Println(err)
@@ -26,67 +35,54 @@ func ParseExcel(scan string) bool{
 			fmt.Println(err)
 		}
 	}()
-
-	/*sheet = "Остатки"
-	column = "Артикул" (F++)
-	for r := range column {
-		f.GetCellValue("")
-	}*/
-	var cellArr = make([]string, 0)
-	// Get value from cell by given worksheet name and axis.
-	//cell, err := f.GetCellValue("Остатки", "F3") //get all F
-
-	/*stroka = "F0"
-	strconv.Atoi()
-	F = F+1++
-	fmt.Println(cell)*/
-	if err != nil {
-		fmt.Println(err)
-
-	}
-	//fmt.Println(cell)
-	// Get all the rows in the Sheet1.
 	rows, err := f.GetRows("Остатки")
-	if err != nil {
-		fmt.Println(err)
+	for _, row := range rows {
+		for _, colCell := range row {
+			fmt.Printf("%T", colCell)
+			//fmt.Print(colCell, "\t")
 
+		}
+		fmt.Println()
 	}
-	for _, v := range article { //todo find there Article
+}
+
+func ParseExcel(scan string) bool {
+
+	f, _ := excelize.OpenFile(pkg.ExcelFile)
+	defer f.Close()
+
+	rows, _ := f.GetRows("Остатки")
+
+	//todo implement values in cells
+	//setval := f.SetCellValue("Sheet2", "A2", "Hello world.")
+
+	for _, v := range xml.Article { //todo find there Article
+
 		if scan == v {
-fmt.Printf("Yes i found this: %v",v)
-return true
+			fmt.Println(v)
+			fmt.Printf("Yes i found this: %v", v)
+			fmt.Println()
+			FoundedArticle = v
+			//todo find this article in Excel
+
+			//opts return true
 		}
 	}
 	for _, row := range rows {
-
-		//columnA := row[len(row)-6 : len(row)-4] //todo something with this (slice out of range [-1:]
-		//columnB := row[len(row)-5 : len(row)-4] //Предупреждения (2 столбец)
-		//columnC := row[len(row)-4 : len(row)-3]
-		/*columnB := row[len(row)-5 : len(row)-4] //Article
-		columnC := row[len(row)-4 : len(row)-3] //Article
-		columnD := row[len(row)-3 : len(row)-2] //Article
-		columnE := row[len(row)-2 : len(row)-1] //Article*/
-		//columnF := row[len(row)-1:] //Article (F 6)
-
-		//fmt.Println(columnA)
-		//fmt.Println(columnB)
-		//fmt.Println(columnC)
-		/*fmt.Println(columnB)
-		fmt.Println(columnC)
-		fmt.Println(columnD)
-		fmt.Println(columnE)*/
-		//fmt.Println(columnF)
+		//row[] is long of array (rows), can be indexed to find column that you need, example row[0:len(row)+1]
 
 		for _, colCell := range row {
-			//fmt.Println(row)
-			//fmt.Println(colCell)
+			if strings.Contains(colCell, FoundedArticle) {
+				fmt.Print("I found article in colCell from XLS: ", row)
+			}
 
+			//fmt.Print(colCell)
 			cellArr = append(cellArr, colCell)
-			//fmt.Print(colCell, "\t")
+
 		}
-		//fmt.Println()
+
 	}
 	return false
 }
 
-
+var cellArr []string

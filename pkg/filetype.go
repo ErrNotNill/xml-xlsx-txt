@@ -13,10 +13,12 @@ var ExcelFile string
 var XmlFile string
 var TxtFile string
 
-func CheckExcel(filename string) bool{
-	exceltypes := []string{".xls",".xlsx",".xlam",".xlsm",".xltm",".xltx",".xlt",".xlr"}
-	for _,v := range exceltypes{
-		if strings.HasSuffix(filename,v){
+//todo fix a rules with search (example .xls) in file name, not in type
+
+func CheckExcel(filename string) bool {
+	exceltypes := []string{".xls", ".xlsx", ".xlam", ".xlsm", ".xltm", ".xltx", ".xlt", ".xlr"}
+	for _, v := range exceltypes {
+		if strings.HasSuffix(filename, v) {
 			return true
 		}
 	}
@@ -39,27 +41,27 @@ func FindAllTypesInDir() error {
 
 		xls, _ := regexp.MatchString(".xl", file.Name())
 		if xls == true {
-			if CheckExcel(file.Name()) == true{
+			if CheckExcel(file.Name()) == true {
 				count += 1
-				fmt.Println("I found excel")
+				fmt.Println("I found excel...OK")
 				ExcelFile = file.Name()
 			}
 		}
 
 		txt, _ := regexp.MatchString(".txt", file.Name())
 		if txt == true {
-			if strings.HasSuffix(file.Name(),".txt"){
+			if strings.HasSuffix(file.Name(), ".txt") {
 				count += 1
-				fmt.Println("i found txt")
+				fmt.Println("i found txt...OK")
 				TxtFile = file.Name()
 			}
 		}
 
 		xml, _ := regexp.MatchString(".xml", file.Name())
 		if xml == true {
-			if strings.HasSuffix(file.Name(),".xml"){
+			if strings.HasSuffix(file.Name(), ".xml") {
 				count += 1
-				fmt.Println("i found xml")
+				fmt.Println("i found xml...OK")
 				XmlFile = file.Name()
 			}
 		}

@@ -7,42 +7,42 @@ import (
 	"xml-txt/pkg"
 )
 
-/*4;2 = article
-4 = brand
-5 = stock
-6 = cost
-....*/
-
-//1-row (choose excel row) 2-column (choose excel column) //row/column
-//3-column (new parse xml argument) row = previous, 4-name column = (choose xml parse argument)
+var modifiedUserArgs = map[string]string{"1": "A", "2": "B", "3": "C", "4": "D", "5": "E", "6": "F", "7": "G", "8": "H", "9": "I", "10": "J",
+	"11": "K", "12": "L", "13": "M", "14": "N", "15": "O", "16": "P", "17": "Q", "18": "R", "19": "S", "20": "T", "21": "Y", "22": "V",
+	"23": "W", "24": "X", "25": "Y", "26": "Z",
+}
 
 var Args []string
+var UserArgsCel string
 
-func GetArgsFromTxt(){
-	read,_ :=os.ReadFile(pkg.TxtFile)
-	//fmt.Println(string(read))
+func GetArgsFromTxt() {
+	read, _ := os.ReadFile(pkg.TxtFile)
 
-	split := strings.Split(string(read),";")
-	Args=append(split)
-	/*for _,v := range Args{
-		fmt.Println(v)
-	}*/
-	fmt.Println(Args[0])
-	//fmt.Println(Args)
-	/*split[0] = ExcelRow()
-	split[1] = ExcelColumn()
-	split[2] = NextColumn()*/
+	split := strings.Split(string(read), ";")
+	Args = append(split)
 
-fmt.Println(split[2])
-fmt.Println(split[6])
+	fmt.Println(Args)
+
+	// todo opts for user Args (example Args[0])
+	setCell := Args[0:2]
+	fmt.Println("SetCell is: ", setCell)
 }
 
-func ExcelRow() string{
+func ExcelRow() string {
 	return ""
 }
-func ExcelColumn() string{
+func ExcelColumn() string {
 	return ""
 }
-func NextColumn() string{
+func NextColumn() string {
 	return ""
+}
+
+//opts
+
+var Row string
+var Column string
+
+func swap() string {
+	return Column + Row
 }

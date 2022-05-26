@@ -4,30 +4,21 @@ import (
 	"fmt"
 	"io/ioutil"
 	"xml-txt/pkg"
-	"xml-txt/txt"
 	"xml-txt/xls"
 	"xml-txt/xml"
 )
 
-//1 - FindAllTypes (added all files)
-//2 - ParseXml (added Article array with articles)
-//3 -
-
 func main() {
+
 	if err := pkg.FindAllTypesInDir(); err != nil {
 		fmt.Println(err.Error())
 	}
-	xml.ParseXml("article")
-	xls.WriteXlsFile()
-	xls.ParseExcel("article")
-	txt.GetArgsFromTxt()
+	xml.ParseXml("article")  //opts what you need find
+	xls.ParseExcel("033536") //todo method for user args
 
-
-	//xml.ParseXml("name")
-
-
-	/*check, _ := os.ReadFile("./txt/Booking.txt")
-	fmt.Println(string(check))*/
+	//xls.GetColumnsExcel()
+	//xls.ParseExcel("article")
+	//txt.GetArgsFromTxt()
 
 }
 
